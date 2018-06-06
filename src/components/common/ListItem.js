@@ -5,6 +5,15 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions'; 
 
 class ListItem extends Component {
+
+    renderDescription() {
+        const {library, selectedLibraryId} = this.props;
+        if(library.id === selectedLibraryId) {
+            return (
+                <Text>{this.props.library.description}</Text>
+            )
+        }
+    }
     render() {
         const { titleStyle } = styles;
         const { id, title } = this.props.library;
@@ -18,6 +27,7 @@ class ListItem extends Component {
                             <Text style={titleStyle}>{title}</Text>
                         </Body> 
                     </CardItem>
+                    {this.renderDescription()}
                 </Card>
             </TouchableWithoutFeedback>
         );
@@ -29,6 +39,10 @@ const styles = {
         fontSize: 18,
         paddingLeft: 15
     }
-}
+};
 
-export default connect(null, actions)(ListItem); // pass null everytime if you dont want to pass mapStateToProps
+const mapStateToProps = state => {
+    return { selectedLibraryId: state.selectedLibraryId };
+};
+
+export default connect(mapStateToProps, actions)(ListItem); // pass null everytime if you dont want to pass mapStateToProps
