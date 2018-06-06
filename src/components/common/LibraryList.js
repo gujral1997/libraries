@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { ListView, View } from 'react-native'
+import { ListView, View, ScrollView } from 'react-native'
 import ListItem from './ListItem'
 
 class LibraryList extends Component {
@@ -18,12 +18,13 @@ class LibraryList extends Component {
     }
 
     render () {
-        console.log(this.props)
         return (
-            <ListView
-            dataSource = {this.dataSource}
-            renderRow = {this.renderRow}
-            />
+            <ScrollView>
+                <ListView
+                dataSource = {this.dataSource}
+                renderRow = {this.renderRow}
+                />
+            </ScrollView>
         );
     }
 }
