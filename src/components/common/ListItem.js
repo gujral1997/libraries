@@ -1,16 +1,22 @@
 import React, {Component} from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, LayoutAnimation } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Body } from 'native-base'; 
 import { connect } from 'react-redux';
 import * as actions from '../../actions'; 
 
 class ListItem extends Component {
 
+    componentWillUpdate() {
+        LayoutAnimation.spring();
+    }
+
     renderDescription() {
         const {library, expanded} = this.props;
         if(expanded) {
             return (
-                <Text>{this.props.library.description}</Text>
+                <CardItem>
+                    <Text>{this.props.library.description}</Text>
+                </CardItem>
             )
         }
     }
@@ -19,7 +25,9 @@ class ListItem extends Component {
         const { id, title } = this.props.library;
         return (
             <TouchableWithoutFeedback
-            onPress={()=> this.props.selectLibrary(id) }
+            onPress={()=> {
+                this.props.selectLibrary(id)
+            }}
             >
                 <Card>
                     <CardItem>
